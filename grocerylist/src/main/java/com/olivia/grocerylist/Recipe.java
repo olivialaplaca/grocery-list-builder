@@ -10,11 +10,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Data
 @Entity
-public class Ingredient {
+public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-    private String packageSize;
 }
