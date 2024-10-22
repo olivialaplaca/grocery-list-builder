@@ -1,5 +1,7 @@
 package com.olivia.grocerylist;
 
+import com.olivia.grocerylist.db.Ingredient;
+import com.olivia.grocerylist.db.IngredientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +23,9 @@ public class IngredientService {
     }
     public Optional<Ingredient> getIngredientById(Integer id) {
         return ingredientRepository.findById(id);
+    }
+
+    public Ingredient saveIngredient(Ingredient ingredient) {
+        return ingredientRepository.saveAndFlush(ingredient);
     }
 }

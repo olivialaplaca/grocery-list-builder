@@ -1,8 +1,8 @@
 package com.olivia.grocerylist;
 
+import com.olivia.grocerylist.db.Ingredient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,5 +18,10 @@ public class IngredientController {
     @GetMapping("/get-ingredients")
     public ResponseEntity<List<Ingredient>> getIngredientList() {
         return ResponseEntity.ok().body(ingredientService.getIngredientList());
+    }
+
+    @PostMapping ("/create-ingredient")
+    public ResponseEntity<Ingredient> saveIngredient(@RequestBody Ingredient ingredient) {
+        return ResponseEntity.ok().body(ingredientService.saveIngredient(ingredient));
     }
 }

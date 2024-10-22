@@ -1,4 +1,4 @@
-package com.olivia.grocerylist;
+package com.olivia.grocerylist.db;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
