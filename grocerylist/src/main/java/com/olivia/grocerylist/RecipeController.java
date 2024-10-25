@@ -3,6 +3,7 @@ package com.olivia.grocerylist;
 import com.olivia.grocerylist.db.Recipe;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
@@ -19,5 +20,10 @@ public class RecipeController {
     @GetMapping("/get-recipe")
     public ResponseEntity<Optional<Recipe>> getRecipe(Integer id){
         return ResponseEntity.ok().body(recipeService.getRecipe(id));
+    }
+
+    @PostMapping("/create-recipe")
+    public ResponseEntity<Recipe> createRecipe(AddRecipeResponse newRecipe) {
+        return ResponseEntity.ok().body(recipeService.saveRecipe(newRecipe));
     }
 }
