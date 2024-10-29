@@ -28,4 +28,8 @@ public class IngredientService {
     public Ingredient saveIngredient(Ingredient ingredient) {
         return ingredientRepository.saveAndFlush(ingredient);
     }
+
+    public Ingredient getIngredientByName(String name) {
+        return ingredientRepository.findByName(name);
+    }
 }

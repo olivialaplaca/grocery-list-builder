@@ -21,4 +21,9 @@ public class RecipeIngredient {
     Ingredient ingredient;
 
     String quantity;
+
+    public RecipeIngredient(RecipeIngredientKey recipeIngredientKey, String quantity) {
+        this.id = recipeIngredientKey;
+        this.quantity = quantity;
+    }
 }

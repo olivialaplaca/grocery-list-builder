@@ -13,4 +13,9 @@ public class RecipeIngredientKey implements Serializable {
 
     @Column(name = "ingredient_id")
     Integer ingredientId;
+
+    public RecipeIngredientKey(Integer recipeId, Integer ingredientId) {
+        this.recipeId = recipeId;
+        this.ingredientId = ingredientId;
+    }
 }
