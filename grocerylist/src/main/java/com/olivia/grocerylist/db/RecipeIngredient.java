@@ -2,9 +2,11 @@ package com.olivia.grocerylist.db;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class RecipeIngredient {
 
     @EmbeddedId

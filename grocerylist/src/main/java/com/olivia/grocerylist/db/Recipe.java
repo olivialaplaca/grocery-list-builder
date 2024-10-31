@@ -16,6 +16,6 @@ public class Recipe {
     private Integer recipeId;
     private String name;
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     Set<RecipeIngredient> recipeIngredients;
 }

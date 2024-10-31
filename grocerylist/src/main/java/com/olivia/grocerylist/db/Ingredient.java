@@ -19,9 +19,4 @@ public class Ingredient {
 
     @OneToMany(mappedBy = "ingredient")
     Set<RecipeIngredient> recipeIngredients;
-
-    public Ingredient(String name, String packageSize) {
-        this.name = name;
-        this.packageSize = packageSize;
-    }
 }

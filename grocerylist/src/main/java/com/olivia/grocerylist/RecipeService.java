@@ -1,24 +1,20 @@
 package com.olivia.grocerylist;
 
 import com.olivia.grocerylist.db.*;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class RecipeService {
 
     private RecipeRepository recipeRepository;
     private IngredientRepository ingredientRepository;
     private RecipeIngredientRepository recipeIngredientRepository;
 
-    public RecipeService(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, RecipeIngredientRepository recipeIngredientRepository) {
-        this.recipeIngredientRepository = recipeIngredientRepository;
-        this.ingredientRepository = ingredientRepository;
-        this.recipeRepository = recipeRepository;
-    }
-
-    public Recipe saveRecipe(AddRecipeResponse newRecipe){
+    public Optional<Recipe> saveRecipe(AddRecipeResponse newRecipe){
         //set recipe
         var recipeRecord = new Recipe();
         recipeRecord.setName(newRecipe.getRecipeName());
@@ -28,13 +24,16 @@ public class RecipeService {
             var newIngredient = new Ingredient();
             newIngredient.setName(item.getIngredientName());
             newIngredient.setPackageSize(item.getPackageSize());
-            var ingredientId = ingredientRepository.saveAndFlush(newIngredient).getIngredientId();
-            var recipeIngredientKey = new RecipeIngredientKey(recipe.getRecipeId(), ingredientId);
+            var ingredient = ingredientRepository.saveAndFlush(newIngredient);
+            var recipeIngredientKey = new RecipeIngredientKey(recipe.getRecipeId(), ingredient.getIngredientId());
             //create recipeIngredient record in db
             var recipeIngredientRecord = new RecipeIngredient(recipeIngredientKey,item.getQuantity());
+            recipeIngredientRecord.setRecipe(recipe);
+            recipeIngredientRecord.setIngredient(ingredient);
             recipeIngredientRepository.saveAndFlush(recipeIngredientRecord);
         }
-        return recipe;
+        var ret = recipeRepository.findById(recipe.getRecipeId());
+    return ret;
     }
 
     public Optional<Recipe> getRecipe(Integer id) {

@@ -1,30 +1,26 @@
 package com.olivia.grocerylist;
 
 import com.olivia.grocerylist.db.Recipe;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/recipe")
+@RequiredArgsConstructor
 public class RecipeController {
     
     private final RecipeService recipeService;
 
-    public RecipeController(RecipeService recipeService) {
-        this.recipeService = recipeService;
-    }
-    
     @GetMapping("/get-recipe")
     public ResponseEntity<Optional<Recipe>> getRecipe(Integer id){
         return ResponseEntity.ok().body(recipeService.getRecipe(id));
     }
 
     @PostMapping("/create-recipe")
-    public ResponseEntity<Recipe> createRecipe(@RequestBody AddRecipeResponse newRecipe) {
+    public ResponseEntity<Optional<Recipe>> createRecipe(@RequestBody AddRecipeResponse newRecipe) {
         return ResponseEntity.ok().body(recipeService.saveRecipe(newRecipe));
     }
 }
