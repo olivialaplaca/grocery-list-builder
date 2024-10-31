@@ -19,7 +19,7 @@ public class RecipeService {
         var recipeRecord = new Recipe();
         recipeRecord.setName(newRecipe.getRecipeName());
         var recipe = recipeRepository.saveAndFlush(recipeRecord);
-        //save ingredients to db
+        //save ingredients to db sdkfjhes
         for (var item : newRecipe.getIngredientList()) {
             var newIngredient = new Ingredient();
             newIngredient.setName(item.getIngredientName());
