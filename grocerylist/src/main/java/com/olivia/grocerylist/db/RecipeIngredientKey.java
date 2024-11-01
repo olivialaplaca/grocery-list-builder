@@ -2,21 +2,23 @@ package com.olivia.grocerylist.db;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 @Embeddable
 @NoArgsConstructor
+@Data
 public class RecipeIngredientKey implements Serializable {
 
     @Column(name = "recipe_id")
-    Integer recipeId;
+    Long recipeId;
 
     @Column(name = "ingredient_id")
-    Integer ingredientId;
+    Long ingredientId;
 
-    public RecipeIngredientKey(Integer recipeId, Integer ingredientId) {
+    public RecipeIngredientKey(Long recipeId, Long ingredientId) {
         this.recipeId = recipeId;
         this.ingredientId = ingredientId;
     }

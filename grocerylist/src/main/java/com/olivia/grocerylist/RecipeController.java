@@ -15,12 +15,12 @@ public class RecipeController {
     private final RecipeService recipeService;
 
     @GetMapping("/get-recipe")
-    public ResponseEntity<Optional<Recipe>> getRecipe(Integer id){
+    public ResponseEntity<Optional<Recipe>> getRecipe(Long id){
         return ResponseEntity.ok().body(recipeService.getRecipe(id));
     }
 
     @PostMapping("/create-recipe")
-    public ResponseEntity<Optional<Recipe>> createRecipe(@RequestBody AddRecipeResponse newRecipe) {
+    public ResponseEntity<Recipe> createRecipe(@RequestBody AddRecipeRequest newRecipe) {
         return ResponseEntity.ok().body(recipeService.saveRecipe(newRecipe));
     }
 }

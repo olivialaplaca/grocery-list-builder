@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class AddRecipeResponse {
+public class AddRecipeRequest {
     private String recipeName;
     private List<RecipeIngredientQuantity> ingredientList;
 }

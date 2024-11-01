@@ -12,7 +12,7 @@ import java.util.Optional;
 @Slf4j
 public class IngredientService {
 
-    private IngredientRepository ingredientRepository;
+    private final IngredientRepository ingredientRepository;
 
     public IngredientService(IngredientRepository ingredientRepository) {
         this.ingredientRepository = ingredientRepository;
@@ -21,7 +21,7 @@ public class IngredientService {
     public List<Ingredient> getIngredientList() {
         return ingredientRepository.findAll();
     }
-    public Optional<Ingredient> getIngredientById(Integer id) {
+    public Optional<Ingredient> getIngredientById(Long id) {
         return ingredientRepository.findById(id);
     }
 

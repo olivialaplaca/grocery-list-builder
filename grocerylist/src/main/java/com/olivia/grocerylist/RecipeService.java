@@ -1,6 +1,8 @@
 package com.olivia.grocerylist;
 
 import com.olivia.grocerylist.db.*;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,30 +15,27 @@ public class RecipeService {
     private RecipeRepository recipeRepository;
     private IngredientRepository ingredientRepository;
     private RecipeIngredientRepository recipeIngredientRepository;
+    private EntityManager entityManager;
 
-    public Optional<Recipe> saveRecipe(AddRecipeResponse newRecipe){
-        //set recipe
-        var recipeRecord = new Recipe();
-        recipeRecord.setName(newRecipe.getRecipeName());
-        var recipe = recipeRepository.saveAndFlush(recipeRecord);
-        //save ingredients to db sdkfjhes
+    @Transactional
+    public Recipe saveRecipe(AddRecipeRequest newRecipe){
+        var recipe = new Recipe();
+        recipe.setName(newRecipe.getRecipeName());
+        recipeRepository.save(recipe);
         for (var item : newRecipe.getIngredientList()) {
-            var newIngredient = new Ingredient();
-            newIngredient.setName(item.getIngredientName());
-            newIngredient.setPackageSize(item.getPackageSize());
-            var ingredient = ingredientRepository.saveAndFlush(newIngredient);
-            var recipeIngredientKey = new RecipeIngredientKey(recipe.getRecipeId(), ingredient.getIngredientId());
+            var ingredient = ingredientRepository.findByName(item.getIngredientName());
             //create recipeIngredient record in db
-            var recipeIngredientRecord = new RecipeIngredient(recipeIngredientKey,item.getQuantity());
+            var recipeIngredientRecord = new RecipeIngredient(new RecipeIngredientKey(),item.getQuantity());
             recipeIngredientRecord.setRecipe(recipe);
             recipeIngredientRecord.setIngredient(ingredient);
-            recipeIngredientRepository.saveAndFlush(recipeIngredientRecord);
+            recipeIngredientRepository.save(recipeIngredientRecord);
         }
-        var ret = recipeRepository.findById(recipe.getRecipeId());
-    return ret;
+        entityManager.flush();
+        entityManager.refresh(recipe);
+        return recipe;
     }
 
-    public Optional<Recipe> getRecipe(Integer id) {
+    public Optional<Recipe> getRecipe(Long id) {
         return recipeRepository.findById(id);
     }
 }
