@@ -24,7 +24,6 @@ public class RecipeService {
         recipeRepository.save(recipe);
         for (var item : newRecipe.getIngredientList()) {
             var ingredient = ingredientRepository.findByName(item.getIngredientName());
-            //create recipeIngredient record in db
             var recipeIngredientRecord = new RecipeIngredient(new RecipeIngredientKey(),item.getQuantity());
             recipeIngredientRecord.setRecipe(recipe);
             recipeIngredientRecord.setIngredient(ingredient);

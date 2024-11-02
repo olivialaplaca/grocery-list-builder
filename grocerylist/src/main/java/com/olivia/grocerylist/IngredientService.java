@@ -2,6 +2,7 @@ package com.olivia.grocerylist;
 
 import com.olivia.grocerylist.db.Ingredient;
 import com.olivia.grocerylist.db.IngredientRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,9 @@ public class IngredientService {
         return ingredientRepository.findById(id);
     }
 
+    @Transactional
     public Ingredient saveIngredient(Ingredient ingredient) {
-        return ingredientRepository.saveAndFlush(ingredient);
+        return ingredientRepository.save(ingredient);
     }
 
     public Ingredient getIngredientByName(String name) {
