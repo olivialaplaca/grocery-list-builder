@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,6 +18,11 @@ public class RecipeController {
     @GetMapping("/get-recipe")
     public ResponseEntity<Optional<Recipe>> getRecipe(Long id){
         return ResponseEntity.ok().body(recipeService.getRecipe(id));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Recipe>> getAllRecipes() {
+        return ResponseEntity.ok().body(recipeService.getAllRecipes());
     }
 
     @PostMapping("/create-recipe")

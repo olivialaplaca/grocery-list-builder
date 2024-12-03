@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,5 +37,9 @@ public class RecipeService {
 
     public Optional<Recipe> getRecipe(Long id) {
         return recipeRepository.findById(id);
+    }
+
+    public List<Recipe> getAllRecipes() {
+        return recipeRepository.findAll();
     }
 }

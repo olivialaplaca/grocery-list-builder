@@ -26,12 +26,12 @@ public class IngredientService {
         return ingredientRepository.findById(id);
     }
 
+    public Ingredient getIngredientByName(String name) {
+        return ingredientRepository.findByName(name);
+    }
+
     @Transactional
     public Ingredient saveIngredient(Ingredient ingredient) {
         return ingredientRepository.save(ingredient);
-    }
-
-    public Ingredient getIngredientByName(String name) {
-        return ingredientRepository.findByName(name);
     }
 }
