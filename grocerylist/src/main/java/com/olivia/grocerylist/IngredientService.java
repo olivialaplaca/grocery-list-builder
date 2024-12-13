@@ -20,7 +20,7 @@ public class IngredientService {
     }
 
     public List<Ingredient> getIngredientList() {
-        return ingredientRepository.findAll();
+        return ingredientRepository.findAllByOrderByName();
     }
     public Optional<Ingredient> getIngredientById(Long id) {
         return ingredientRepository.findById(id);

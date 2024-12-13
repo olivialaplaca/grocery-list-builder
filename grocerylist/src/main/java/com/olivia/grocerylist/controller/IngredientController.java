@@ -5,10 +5,7 @@ import com.olivia.grocerylist.db.Ingredient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,13 +31,16 @@ public class IngredientController {
         return "list-ingredients";
     }
 
-//    @GetMapping("/get-ingredients")
-//    public ResponseEntity<List<Ingredient>> getIngredientList() {
-//        return ResponseEntity.ok().body(ingredientService.getIngredientList());
-//    }
-//
-//    @PostMapping ("/create-ingredient")
-//    public ResponseEntity<Ingredient> saveIngredient(@RequestBody Ingredient ingredient) {
-//        return ResponseEntity.ok().body(ingredientService.saveIngredient(ingredient));
-//    }
+    @GetMapping("/showAddForm")
+    public String showAddForm(Model theModel) {
+        var newIngredient = new Ingredient();
+        theModel.addAttribute("ingredient", newIngredient);
+        return "ingredient-form";
+    }
+
+    @PostMapping ("/save")
+    public String saveIngredient(@ModelAttribute("ingredient") Ingredient ingredient) {
+        ingredientService.saveIngredient(ingredient);
+        return "redirect:/ingredients/list";
+    }
 }
