@@ -38,6 +38,13 @@ public class IngredientController {
         return "ingredient-form";
     }
 
+    @GetMapping("/showUpdateForm")
+    public String showUpdateForm(@RequestParam("ingredientId") Long id, Model theModel) {
+        var ingredient = ingredientService.getIngredientById(id);
+        theModel.addAttribute("ingredient", ingredient);
+        return "ingredient-form";
+    }
+
     @PostMapping ("/save")
     public String saveIngredient(@ModelAttribute("ingredient") Ingredient ingredient) {
         ingredientService.saveIngredient(ingredient);

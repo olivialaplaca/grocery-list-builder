@@ -19,6 +19,7 @@
 
     <form action="#" th:action="@{/ingredients/save}" th:object="${ingredient}" method="POST">
 
+        <input type="hidden" th:field="*{ingredientId}">
         <input type="text" th:field="*{name}" class="form-control mb-4 w-25" placeholder="Ingredient name">
         <input type="text" th:field="*{packageSize}" class="form-control mb-4 w-25" placeholder="Package size">
 

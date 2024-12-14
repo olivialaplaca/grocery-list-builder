@@ -24,6 +24,7 @@
                 <th>Ingredient ID</th>
                 <th>Ingredient Name</th>
                 <th>Package Size</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,11 @@
                 <td th:text="${tempIngredient.ingredientId}"/>
                 <td th:text="${tempIngredient.name}"/>
                 <td th:text="${tempIngredient.packageSize}"/>
+                <td>
+                    <a th:href="@{/ingredients/showUpdateForm(ingredientId=${tempIngredient.ingredientId})}" class="btn btn-info btn-sm">
+                        Update
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>
