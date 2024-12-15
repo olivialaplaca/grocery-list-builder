@@ -34,4 +34,9 @@ public class IngredientService {
     public Ingredient saveIngredient(Ingredient ingredient) {
         return ingredientRepository.save(ingredient);
     }
+
+    @Transactional
+    public void deleteById(Long id) {
+        ingredientRepository.deleteById(id);
+    }
 }

@@ -2,12 +2,9 @@ package com.olivia.grocerylist.controller;
 
 import com.olivia.grocerylist.IngredientService;
 import com.olivia.grocerylist.db.Ingredient;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/ingredients")
@@ -48,6 +45,12 @@ public class IngredientController {
     @PostMapping ("/save")
     public String saveIngredient(@ModelAttribute("ingredient") Ingredient ingredient) {
         ingredientService.saveIngredient(ingredient);
+        return "redirect:/ingredients/list";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("ingredientId") Long id) {
+        ingredientService.deleteById(id);
         return "redirect:/ingredients/list";
     }
 }
