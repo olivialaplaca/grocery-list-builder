@@ -18,13 +18,8 @@ public class IngredientController {
 
     @GetMapping("/list")
     public String listIngredients(Model theModel) {
-        //get ingredients from db
         var ingredientList = ingredientService.getIngredientList();
-
-        //add to the spring model
         theModel.addAttribute("ingredients", ingredientList);
-
-        //return name of view page
         return "list-ingredients";
     }
 
