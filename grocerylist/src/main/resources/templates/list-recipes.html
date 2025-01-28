@@ -14,6 +14,10 @@
     <h3>Recipe Box</h3>
     <hr>
 
+    <a th:href="@{/recipes/showAddForm}" class="btn btn-primary btn-sm mb-3">
+      Add Recipe
+    </a>
+
     <table class="table table-bordered table-striped">
       <thead class="table-dark">
         <tr>
@@ -26,6 +30,9 @@
         </tr>
       </tbody>
     </table>
+
+    <hr>
+    <a th:href="@{/}">Home</a>
   </div>
 
 </body>
