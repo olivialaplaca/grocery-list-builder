@@ -1,0 +1,10 @@
+spring:
+  config:
+    import:
+      - optional:local.yaml
+  datasource:
+    url: jdbc:postgresql://localhost:5432/
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
