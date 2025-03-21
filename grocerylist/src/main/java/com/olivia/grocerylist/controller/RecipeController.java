@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/recipes")
+@RequestMapping("/recipe")
 @RequiredArgsConstructor
 public class RecipeController {
     
@@ -32,9 +32,11 @@ public class RecipeController {
         theModel.addAttribute("recipes", recipeList);
         return "list-recipes";
     }
-//    public ResponseEntity<List<Recipe>> getAllRecipes() {
-//        return ResponseEntity.ok().body(recipeService.getAllRecipes());
-//    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Recipe>> getAllRecipes() {
+        return ResponseEntity.ok().body(recipeService.getAllRecipes());
+    }
 
     @GetMapping("/showAddForm")
     public String showAddForm(Model theModel) {

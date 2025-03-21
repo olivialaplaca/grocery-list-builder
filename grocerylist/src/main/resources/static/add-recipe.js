@@ -3,7 +3,7 @@ const inputBoxes = document.querySelectorAll(".input-box");
 const addRecipeObject = {
     "recipeName": "",
     "servings" : "",
-    "ingredients": []
+    "ingredientList": []
 }
 
 inputBoxes[0].addEventListener("change", function() {
@@ -36,10 +36,12 @@ addIngredientButton.addEventListener("click", function() {
         "quantity": ingQuant,
         "unitOfMeasure": ingUnit
     }
-    addRecipeObject.ingredients.push(newIngredient);
+    addRecipeObject.ingredientList.push(newIngredient);
     inputBoxes[2]. value = "";
     inputBoxes[3]. value = "";
     inputBoxes[4]. value = "";
+
+    console.log(addRecipeObject);
 })
 
 const saveButton = document.querySelector(".save-btn");
@@ -49,6 +51,9 @@ saveButton.addEventListener("click", saveRecipe);
 
 async function saveRecipe () {
     const result = await fetch(url, {
+        headers: {
+            "Content-Type": "application/json",
+          },
         method: "POST",
         body: JSON.stringify(addRecipeObject)
     })

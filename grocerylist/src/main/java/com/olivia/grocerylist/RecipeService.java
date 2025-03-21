@@ -25,10 +25,13 @@ public class RecipeService {
         recipeRepository.save(recipe);
         for (var item : newRecipe.getIngredientList()) {
             var ingredient = ingredientRepository.findByName(item.getIngredientName());
-            var recipeIngredientRecord = new RecipeIngredient(new RecipeIngredientKey(),item.getQuantity());
-            recipeIngredientRecord.setRecipe(recipe);
-            recipeIngredientRecord.setIngredient(ingredient);
-            recipeIngredientRepository.save(recipeIngredientRecord);
+            if (ingredient != null) {
+                var recipeIngredientRecord = new RecipeIngredient(new RecipeIngredientKey(), item.getQuantity(), item.getUnitOfMeasure());
+                recipeIngredientRecord.setRecipe(recipe);
+                recipeIngredientRecord.setIngredient(ingredient);
+                recipeIngredientRepository.save(recipeIngredientRecord);
+            }
+
         }
         entityManager.flush();
         entityManager.refresh(recipe);

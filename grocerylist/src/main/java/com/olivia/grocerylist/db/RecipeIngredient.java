@@ -35,10 +35,12 @@ public class RecipeIngredient {
     Ingredient ingredient;
 
     String quantity;
+    String unitOfMeasure;
 
-    public RecipeIngredient(RecipeIngredientKey recipeIngredientKey, String quantity) {
+    public RecipeIngredient(RecipeIngredientKey recipeIngredientKey, String quantity, String unit) {
         this.id = recipeIngredientKey;
         this.quantity = quantity;
+        this.unitOfMeasure = unit;
     }
 
     @Override
