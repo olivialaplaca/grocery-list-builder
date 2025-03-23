@@ -4,7 +4,6 @@ import com.olivia.grocerylist.AddRecipeRequest;
 import com.olivia.grocerylist.RecipeService;
 import com.olivia.grocerylist.db.Ingredient;
 import com.olivia.grocerylist.db.Recipe;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +15,13 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/recipe")
-@RequiredArgsConstructor
 public class RecipeController {
     
     private final RecipeService recipeService;
+
+    public RecipeController(RecipeService recipeService) {
+        this.recipeService = recipeService;
+    }
 
     @GetMapping("/get-recipe")
     public ResponseEntity<Optional<Recipe>> getRecipe(Long id){

@@ -3,20 +3,25 @@ package com.olivia.grocerylist;
 import com.olivia.grocerylist.db.*;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
 public class RecipeService {
 
-    private RecipeRepository recipeRepository;
-    private IngredientRepository ingredientRepository;
-    private RecipeIngredientRepository recipeIngredientRepository;
-    private EntityManager entityManager;
+    private final RecipeRepository recipeRepository;
+    private final IngredientRepository ingredientRepository;
+    private final RecipeIngredientRepository recipeIngredientRepository;
+    private final EntityManager entityManager;
+
+    public RecipeService(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, RecipeIngredientRepository recipeIngredientRepository, EntityManager entityManager) {
+        this.recipeRepository = recipeRepository;
+        this.ingredientRepository = ingredientRepository;
+        this.recipeIngredientRepository = recipeIngredientRepository;
+        this.entityManager = entityManager;
+    }
 
     @Transactional
     public Recipe saveRecipe(AddRecipeRequest newRecipe){
