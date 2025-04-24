@@ -1,6 +1,6 @@
 package com.olivia.grocerylist.controller;
 
-import com.olivia.grocerylist.IngredientService;
+import com.olivia.grocerylist.service.IngredientService;
 import com.olivia.grocerylist.db.Ingredient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

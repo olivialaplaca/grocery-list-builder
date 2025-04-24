@@ -1,4 +1,3 @@
-//make a call to retrieve recipes
 const getRecipeListUrl = "http://localhost:8080/recipe/all";
 
 async function getRecipes(url) {
@@ -15,5 +14,3 @@ async function getRecipes(url) {
 }
 
 getRecipes(getRecipeListUrl);
-//for each recipe, get the recipe name
-//then create a new table row and td element and add the recipe name
