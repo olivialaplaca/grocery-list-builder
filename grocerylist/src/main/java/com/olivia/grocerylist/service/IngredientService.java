@@ -1,4 +1,4 @@
-package com.olivia.grocerylist;
+package com.olivia.grocerylist.service;
 
 import com.olivia.grocerylist.db.Ingredient;
 import com.olivia.grocerylist.db.IngredientRepository;

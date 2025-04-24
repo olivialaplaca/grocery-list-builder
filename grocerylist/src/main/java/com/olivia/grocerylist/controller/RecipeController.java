@@ -1,7 +1,7 @@
 package com.olivia.grocerylist.controller;
 
 import com.olivia.grocerylist.AddRecipeRequest;
-import com.olivia.grocerylist.RecipeService;
+import com.olivia.grocerylist.service.RecipeService;
 import com.olivia.grocerylist.db.Recipe;
 import org.springframework.web.bind.annotation.*;
 

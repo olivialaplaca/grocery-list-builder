@@ -1,5 +1,6 @@
-package com.olivia.grocerylist;
+package com.olivia.grocerylist.service;
 
+import com.olivia.grocerylist.AddRecipeRequest;
 import com.olivia.grocerylist.db.*;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
