@@ -25,6 +25,7 @@ public class Recipe {
     @GeneratedValue
     private Long recipeId;
     private String name;
+    private Integer servings;
 
     @OneToMany(mappedBy = "recipe")
     @ToString.Exclude
