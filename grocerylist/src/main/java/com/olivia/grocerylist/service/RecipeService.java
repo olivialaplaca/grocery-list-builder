@@ -89,4 +89,16 @@ public class RecipeService {
         entityManager.refresh(recipeToUpdate);
         return recipeToUpdate;
     }
+
+    public String deleteById(Long id) {
+        var recipeToDelete = recipeRepository.findById(id);
+        if (recipeToDelete.isPresent()) {
+            var ingredientsToDelete = recipeToDelete.get().getRecipeIngredients();
+            for (var ingredient : ingredientsToDelete) {
+                recipeIngredientRepository.deleteById(ingredient.getId());
+            }
+        }
+        recipeRepository.deleteById(id);
+        return "recipe successfully deleted";
+    }
 }
