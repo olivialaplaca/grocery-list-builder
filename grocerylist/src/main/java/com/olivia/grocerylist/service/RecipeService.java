@@ -33,7 +33,7 @@ public class RecipeService {
         recipe.setName(newRecipe.getRecipeName());
         recipe.setServings(Integer.valueOf(newRecipe.getServings()));
         recipeRepository.save(recipe);
-        for (var item : newRecipe.getIngredientList()) {
+        for (var item : newRecipe.getRecipeIngredients()) {
             var ingredient = ingredientRepository.findByName(item.getIngredientName());
             if (ingredient != null) {
                 var recipeIngredientRecord = new RecipeIngredient(new RecipeIngredientKey(), item.getQuantity(), item.getUnitOfMeasure());

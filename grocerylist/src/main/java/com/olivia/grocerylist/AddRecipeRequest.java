@@ -8,5 +8,5 @@ import java.util.List;
 public class AddRecipeRequest {
     private String recipeName;
     private String servings;
-    private List<RecipeIngredientQuantity> ingredientList;
+    private List<RecipeIngredientQuantity> recipeIngredients;
 }
