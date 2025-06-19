@@ -2,6 +2,7 @@ package com.olivia.grocerylist.controller;
 
 import com.olivia.grocerylist.AddRecipeRequest;
 import com.olivia.grocerylist.UpdateRecipeRequest;
+import com.olivia.grocerylist.db.GetRecipeRequest;
 import com.olivia.grocerylist.service.RecipeService;
 import com.olivia.grocerylist.db.Recipe;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class RecipeController {
     }
 
     @GetMapping("/all")
-    public List<Recipe> getAllRecipes() {
+    public List<GetRecipeRequest> getAllRecipes() {
         return recipeService.getAllRecipes();
     }
 

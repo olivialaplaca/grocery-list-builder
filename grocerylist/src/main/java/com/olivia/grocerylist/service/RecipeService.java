@@ -1,12 +1,14 @@
 package com.olivia.grocerylist.service;
 
 import com.olivia.grocerylist.AddRecipeRequest;
+import com.olivia.grocerylist.RecipeIngredientQuantity;
 import com.olivia.grocerylist.UpdateRecipeRequest;
 import com.olivia.grocerylist.db.*;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,8 +60,32 @@ public class RecipeService {
         return recipeRepository.findById(id);
     }
 
-    public List<Recipe> getAllRecipes() {
-        return recipeRepository.findAll();
+    public List<GetRecipeRequest> getAllRecipes() {
+        var recipes = recipeRepository.findAll();
+        var recipeList = new ArrayList<GetRecipeRequest>();
+        for (var recipe : recipes) {
+            var recipeToReturn = new GetRecipeRequest();
+            recipeToReturn.setRecipeId(recipe.getRecipeId());
+            recipeToReturn.setName(recipe.getName());
+            recipeToReturn.setServings(recipe.getServings());
+            var ingredientList = getIngredients(recipe);
+            recipeToReturn.setRecipeIngredients(ingredientList);
+            recipeList.add(recipeToReturn);
+        }
+        return recipeList;
+    }
+
+    private static ArrayList<RecipeIngredientQuantity> getIngredients(Recipe recipe) {
+        var ingredientList = new ArrayList<RecipeIngredientQuantity>();
+        for (var ingredient : recipe.getRecipeIngredients()) {
+            var recipeIngredient = new RecipeIngredientQuantity();
+            recipeIngredient.setIngredientId(ingredient.getIngredient().getIngredientId());
+            recipeIngredient.setIngredientName(ingredient.getIngredient().getName());
+            recipeIngredient.setQuantity(ingredient.getQuantity());
+            recipeIngredient.setUnitOfMeasure(ingredient.getUnitOfMeasure());
+            ingredientList.add(recipeIngredient);
+        }
+        return ingredientList;
     }
 
     @Transactional
