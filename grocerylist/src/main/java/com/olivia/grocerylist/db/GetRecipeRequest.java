@@ -16,7 +16,7 @@ import java.util.List;
 public class GetRecipeRequest {
     @Id
     private Long recipeId;
-    private String name;
+    private String recipeName;
     private Integer servings;
     private List<RecipeIngredientQuantity> recipeIngredients;
 }

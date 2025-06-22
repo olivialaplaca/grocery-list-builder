@@ -66,7 +66,7 @@ public class RecipeService {
         for (var recipe : recipes) {
             var recipeToReturn = new GetRecipeRequest();
             recipeToReturn.setRecipeId(recipe.getRecipeId());
-            recipeToReturn.setName(recipe.getName());
+            recipeToReturn.setRecipeName(recipe.getName());
             recipeToReturn.setServings(recipe.getServings());
             var ingredientList = getIngredients(recipe);
             recipeToReturn.setRecipeIngredients(ingredientList);
@@ -92,9 +92,11 @@ public class RecipeService {
     public Recipe updateRecipe(UpdateRecipeRequest recipe) {
         var recipeToUpdate = recipeRepository.findById(recipe.getRecipeId()).orElseThrow();
         recipeToUpdate.setName(recipe.getRecipeName());
-        recipeToUpdate.setServings(Integer.valueOf(recipe.getServings()));
+        if (recipe.getServings() != null) {
+            recipeToUpdate.setServings(Integer.valueOf(recipe.getServings()));
+        }
         recipeRepository.save(recipeToUpdate);
-        for (var item : recipe.getIngredientList()) {
+        for (var item : recipe.getRecipeIngredients()) {
             var ingredient = ingredientRepository.findByName(item.getIngredientName());
             if (ingredient != null) {
                 var recipeIngredient = recipeIngredientRepository.findByRecipeIngredientKey(recipeToUpdate.getRecipeId(),ingredient.getIngredientId());
@@ -109,6 +111,12 @@ public class RecipeService {
                 recipeIngredientRecord.setRecipe(recipeToUpdate);
                 recipeIngredientRecord.setIngredient(newIngredient);
                 recipeIngredientRepository.save(recipeIngredientRecord);
+            }
+        }
+        for (var oldIngredient : recipeToUpdate.getRecipeIngredients()) {
+            var newIngredientList = recipe.getRecipeIngredients().stream().map(RecipeIngredientQuantity::getIngredientName).toList();
+            if (!newIngredientList.contains(oldIngredient.getIngredient().getName())) {
+                recipeIngredientRepository.deleteById(oldIngredient.getId());
             }
         }
         entityManager.flush();

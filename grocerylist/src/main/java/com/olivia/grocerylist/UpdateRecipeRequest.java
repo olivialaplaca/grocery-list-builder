@@ -11,5 +11,5 @@ public class UpdateRecipeRequest {
     private Long recipeId;
     private String recipeName;
     private String servings;
-    private List<RecipeIngredientQuantity> ingredientList;
+    private List<RecipeIngredientQuantity> recipeIngredients;
 }
