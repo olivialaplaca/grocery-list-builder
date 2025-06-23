@@ -97,11 +97,19 @@ public class RecipeService {
         }
         recipeRepository.save(recipeToUpdate);
         for (var item : recipe.getRecipeIngredients()) {
+            if (item.getIngredientName() == null || item.getIngredientName().isEmpty() ) {
+                continue;
+            }
             var ingredient = ingredientRepository.findByName(item.getIngredientName());
-            if (ingredient != null) {
+            if (ingredient != null && recipeIngredientRepository.findByRecipeIngredientKey(recipeToUpdate.getRecipeId(),ingredient.getIngredientId()) != null) {
                 var recipeIngredient = recipeIngredientRepository.findByRecipeIngredientKey(recipeToUpdate.getRecipeId(),ingredient.getIngredientId());
                 recipeIngredient.setQuantity(item.getQuantity());
                 recipeIngredient.setUnitOfMeasure(item.getUnitOfMeasure());
+            } else if (ingredient != null) {
+                var recipeIngredientRecord = new RecipeIngredient(new RecipeIngredientKey(), item.getQuantity(), item.getUnitOfMeasure());
+                recipeIngredientRecord.setRecipe(recipeToUpdate);
+                recipeIngredientRecord.setIngredient(ingredient);
+                recipeIngredientRepository.save(recipeIngredientRecord);
             } else {
                 var newIngredient = new Ingredient();
                 newIngredient.setName(item.getIngredientName());
