@@ -26,6 +26,16 @@ public class Recipe {
     private Long recipeId;
     private String name;
     private Integer servings;
+    private Set<MealCategory> mealCategories;
+
+    public enum MealCategory {
+        BREAKFAST,
+        LUNCH,
+        DINNER,
+        SNACK,
+        DESSERT,
+        BEVERAGE
+    }
 
     @OneToMany(mappedBy = "recipe")
     @ToString.Exclude

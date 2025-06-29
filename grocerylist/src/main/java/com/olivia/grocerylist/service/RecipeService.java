@@ -32,6 +32,8 @@ public class RecipeService {
         var recipe = new Recipe();
         recipe.setName(newRecipe.getRecipeName());
         recipe.setServings(Integer.valueOf(newRecipe.getServings()));
+        recipe.setMealCategories(newRecipe.getMealCategories());
+        System.out.println(recipe.getMealCategories());
         recipeRepository.save(recipe);
         for (var item : newRecipe.getRecipeIngredients()) {
             var ingredient = ingredientRepository.findByName(item.getIngredientName());
@@ -68,6 +70,7 @@ public class RecipeService {
             recipeToReturn.setRecipeId(recipe.getRecipeId());
             recipeToReturn.setRecipeName(recipe.getName());
             recipeToReturn.setServings(recipe.getServings());
+            recipeToReturn.setMealCategories(recipe.getMealCategories());
             var ingredientList = getIngredients(recipe);
             recipeToReturn.setRecipeIngredients(ingredientList);
             recipeList.add(recipeToReturn);
@@ -94,6 +97,9 @@ public class RecipeService {
         recipeToUpdate.setName(recipe.getRecipeName());
         if (recipe.getServings() != null) {
             recipeToUpdate.setServings(Integer.valueOf(recipe.getServings()));
+        }
+        if (recipe.getMealCategories() != null) {
+            recipeToUpdate.setMealCategories(recipe.getMealCategories());
         }
         recipeRepository.save(recipeToUpdate);
         for (var item : recipe.getRecipeIngredients()) {
