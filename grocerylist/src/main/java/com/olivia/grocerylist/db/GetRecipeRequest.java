@@ -8,7 +8,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
-import java.util.Set;
 
 @RequiredArgsConstructor
 @Getter
@@ -19,6 +18,5 @@ public class GetRecipeRequest {
     private Long recipeId;
     private String recipeName;
     private Integer servings;
-    private Set<Recipe.MealCategory> mealCategories;
     private List<RecipeIngredientQuantity> recipeIngredients;
 }
