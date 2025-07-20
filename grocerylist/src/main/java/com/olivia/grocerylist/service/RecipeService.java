@@ -1,9 +1,10 @@
 package com.olivia.grocerylist.service;
 
-import com.olivia.grocerylist.AddRecipeRequest;
-import com.olivia.grocerylist.RecipeIngredientQuantity;
-import com.olivia.grocerylist.UpdateRecipeRequest;
+import com.olivia.grocerylist.request.AddRecipeRequest;
+import com.olivia.grocerylist.db.RecipeIngredientQuantity;
+import com.olivia.grocerylist.request.UpdateRecipeRequest;
 import com.olivia.grocerylist.db.*;
+import com.olivia.grocerylist.request.GetRecipeRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
