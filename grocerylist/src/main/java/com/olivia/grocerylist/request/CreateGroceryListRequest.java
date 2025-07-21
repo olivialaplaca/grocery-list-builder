@@ -1,4 +1,4 @@
-package com.olivia.grocerylist;
+package com.olivia.grocerylist.request;
 
 import lombok.Data;
 

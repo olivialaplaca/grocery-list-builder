@@ -1,6 +1,6 @@
-package com.olivia.grocerylist.db;
+package com.olivia.grocerylist.request;
 
-import com.olivia.grocerylist.RecipeIngredientQuantity;
+import com.olivia.grocerylist.db.RecipeIngredientQuantity;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

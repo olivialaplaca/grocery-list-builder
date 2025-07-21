@@ -1,5 +1,6 @@
-package com.olivia.grocerylist;
+package com.olivia.grocerylist.request;
 
+import com.olivia.grocerylist.db.RecipeIngredientQuantity;
 import lombok.Getter;
 import lombok.Setter;
 
