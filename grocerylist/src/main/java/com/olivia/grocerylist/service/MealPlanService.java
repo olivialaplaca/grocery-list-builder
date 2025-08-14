@@ -1,47 +1,60 @@
 package com.olivia.grocerylist.service;
 
-import com.olivia.grocerylist.CreateGroceryListRequest;
+import com.olivia.grocerylist.request.CreateGroceryListRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class MealPlanService {
 
     private final RecipeService recipeService;
+    private final IngredientService ingredientService;
 
-    public MealPlanService(RecipeService recipeService) {
+    public MealPlanService(RecipeService recipeService, IngredientService ingredientService) {
         this.recipeService = recipeService;
+        this.ingredientService = ingredientService;
     }
 
-    public List<String> generateGroceryList(CreateGroceryListRequest groceryListRequest) {
-        //get recipeIds from request
+    public List<GroceryListElement> generateGroceryList(CreateGroceryListRequest groceryListRequest) {
         var recipeCounts = getRecipeOccurrences(groceryListRequest);
-        var ingredients = new ArrayList<String>();
-        Integer totalRequiredServings;
-        //if useLeftovers is true,
-        if (groceryListRequest.getUseLeftovers() == true) {
-        // then for each recipe check that recipe servings >= number of people * recipe count
-            for (var recipe : recipeCounts.keySet()) {
-                totalRequiredServings = recipeCounts.get(recipe) * groceryListRequest.getNumberOfPeople();
+        var groceryList = new ArrayList<GroceryListElement>();
+
+        for (var recipeId : recipeCounts.keySet()) {
+            var recipe = recipeService.getRecipe(Long.valueOf(recipeId));
+            for (var ingredient : recipe.getRecipeIngredients()) {
+                var ingredientName = ingredientService.getIngredientById(ingredient.getIngredient().getIngredientId()).get().getName();
+                var listItem = new GroceryListElement();
+                listItem.setItemName(ingredientName);
+                listItem.setQuantity(ingredient.getQuantity());
+                listItem.setUnitOfMeasure(ingredient.getUnitOfMeasure());
+                groceryList.add(listItem);
             }
-
         }
-        //if useLeftovers is false, reduce the recipe
+        groceryList.sort(GroceryListElement::compareTo);
+        return groceryList;
+    }
 
-        return ingredients;
+
+
+
+
+    private Boolean areAllRecipesUnique(HashMap<String, Integer> recipeCounts) {
+        for (var key : recipeCounts.keySet()) {
+            if (recipeCounts.get(key) > 1) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private Boolean doesRecipeMakeEnough(Integer requiredServings, Long recipeId) {
-        var recipeServings = this.recipeService.getRecipe(recipeId).get().getServings();
+        var recipeServings = this.recipeService.getRecipe(recipeId).getServings();
         return recipeServings >= requiredServings;
     }
 
     private Integer determineIngredientMultiplier(Integer requiredServings, Long recipeId) {
-        var recipeServings = this.recipeService.getRecipe(recipeId).get().getServings();
+        var recipeServings = this.recipeService.getRecipe(recipeId).getServings();
         if (recipeServings == null) {
             return -1;
         }
@@ -63,7 +76,7 @@ public class MealPlanService {
         for (var day : days) {
             var recipeId = groceryListRequest.getMealPlanRecipes().get(day);
             var count = Collections.frequency(days, recipeId);
-            recipeCounts.put(recipeId, count);
+            recipeCounts.put(String.valueOf(recipeId), count);
         }
         return recipeCounts;
     }

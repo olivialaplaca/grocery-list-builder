@@ -1,14 +1,13 @@
 package com.olivia.grocerylist.controller;
 
-import com.olivia.grocerylist.request.AddRecipeRequest;
-import com.olivia.grocerylist.request.UpdateRecipeRequest;
-import com.olivia.grocerylist.request.GetRecipeRequest;
-import com.olivia.grocerylist.service.RecipeService;
 import com.olivia.grocerylist.db.Recipe;
+import com.olivia.grocerylist.request.AddRecipeRequest;
+import com.olivia.grocerylist.request.GetRecipeRequest;
+import com.olivia.grocerylist.request.UpdateRecipeRequest;
+import com.olivia.grocerylist.service.RecipeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/recipe")
@@ -21,7 +20,7 @@ public class RecipeController {
     }
 
     @GetMapping("/get-recipe/{id}")
-    public Optional<Recipe> getRecipe(@PathVariable Long id){
+    public Recipe getRecipe(@PathVariable Long id){
         return recipeService.getRecipe(id);
     }
 

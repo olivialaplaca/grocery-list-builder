@@ -1,17 +1,15 @@
 package com.olivia.grocerylist.service;
 
-import com.olivia.grocerylist.request.AddRecipeRequest;
-import com.olivia.grocerylist.db.RecipeIngredientQuantity;
-import com.olivia.grocerylist.request.UpdateRecipeRequest;
 import com.olivia.grocerylist.db.*;
+import com.olivia.grocerylist.request.AddRecipeRequest;
 import com.olivia.grocerylist.request.GetRecipeRequest;
+import com.olivia.grocerylist.request.UpdateRecipeRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RecipeService {
@@ -57,8 +55,8 @@ public class RecipeService {
         return recipe;
     }
 
-    public Optional<Recipe> getRecipe(Long id) {
-        return recipeRepository.findById(id);
+    public Recipe getRecipe(Long id) {
+        return recipeRepository.findById(id).orElseThrow();
     }
 
     public List<GetRecipeRequest> getAllRecipes() {

@@ -6,7 +6,7 @@ import java.util.Map;
 
 @Data
 public class CreateGroceryListRequest {
-    private Map<String, String> mealPlanRecipes;
+    private Map<String, Long> mealPlanRecipes;
     private Integer numberOfPeople;
     private Boolean useLeftovers;
 }
