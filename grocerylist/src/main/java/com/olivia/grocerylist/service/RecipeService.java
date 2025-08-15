@@ -71,6 +71,7 @@ public class RecipeService {
             recipeToReturn.setRecipeIngredients(ingredientList);
             recipeList.add(recipeToReturn);
         }
+        recipeList.sort(GetRecipeRequest::compareTo);
         return recipeList;
     }
 

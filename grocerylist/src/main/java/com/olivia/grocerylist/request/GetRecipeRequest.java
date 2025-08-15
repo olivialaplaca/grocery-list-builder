@@ -13,10 +13,16 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class GetRecipeRequest {
+public class GetRecipeRequest implements Comparable<GetRecipeRequest>{
     @Id
     private Long recipeId;
     private String recipeName;
     private Integer servings;
     private List<RecipeIngredientQuantity> recipeIngredients;
+
+    public int compareTo(GetRecipeRequest o) {
+        var recipe1 = this.recipeName;
+        var recipe2 = o.recipeName;
+        return recipe1.compareTo(recipe2);
+    }
 }

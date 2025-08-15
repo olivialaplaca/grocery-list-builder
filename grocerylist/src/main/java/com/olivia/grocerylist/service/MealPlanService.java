@@ -23,7 +23,7 @@ public class MealPlanService {
         for (var recipeId : recipeCounts.keySet()) {
             var recipe = recipeService.getRecipe(Long.valueOf(recipeId));
             for (var ingredient : recipe.getRecipeIngredients()) {
-                var ingredientName = ingredientService.getIngredientById(ingredient.getIngredient().getIngredientId()).get().getName();
+                var ingredientName = ingredientService.getIngredientById(ingredient.getIngredient().getIngredientId()).orElseThrow().getName();
                 var listItem = new GroceryListElement();
                 listItem.setItemName(ingredientName);
                 listItem.setQuantity(ingredient.getQuantity());
